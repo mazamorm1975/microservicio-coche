@@ -1,5 +1,6 @@
 package com.coche.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,16 +35,18 @@ public class CarController {
 	
 	//Api Rest para ubicar por id del coche de la base de datos microservice_coche
 	@GetMapping("/{id}")
-	public ResponseEntity<Carro> buscarPorId(@PathVariable("id") int id){
+	public ResponseEntity<List<Carro>> buscarPorId(@PathVariable("id") int id){
 		
 		Carro car = carServiceImpl.busquedaPorId(id);
 		
 		if(car != null) {
-		 Carro car2 = carServiceImpl.busquedaPorId(id);
-		  return new ResponseEntity<Carro>(car2, HttpStatus.OK);
+		 
+		List<Carro> car2 = Arrays.asList(carServiceImpl.busquedaPorId(id));
+		
+		  return new ResponseEntity<List<Carro>>(car2, HttpStatus.OK);
 		}
 		
-		return new ResponseEntity<>(car, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<List<Carro>>(HttpStatus.NOT_FOUND);
 	}
 	
 	//Api Rest para obtener el listado general de TODOS los automoviles de la base de datos microservice_coche
@@ -62,6 +65,7 @@ public class CarController {
 		
 	return new ResponseEntity<List<Carro>>(listaTodosLosCarrosDeUnUsuario, HttpStatus.OK);
 	}
+	
 	
 	
 }
