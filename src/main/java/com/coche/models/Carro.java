@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name="Coche")
 public class Carro {
-
+    
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -28,6 +28,7 @@ public class Carro {
 	@Column(name="modelo")
 	private String modelo;
 	
+	//Se implementa el atributo usuarioId
 	@Column(name="usuarioId")
 	private int usuarioId;
 	

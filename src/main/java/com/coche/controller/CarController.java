@@ -41,6 +41,7 @@ public class CarController {
 		
 		if(car != null) {
 		 
+		//Se convierte a lista lo que devuelve el metodo busquedaPorId en el que se implementa un optional	
 		List<Carro> car2 = Arrays.asList(carServiceImpl.busquedaPorId(id));
 		
 		  return new ResponseEntity<List<Carro>>(car2, HttpStatus.OK);
