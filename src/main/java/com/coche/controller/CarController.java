@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.coche.models.Carro;
+import com.coche.service.CarService;
 import com.coche.serviceImplementation.CarServiceImpl;
 
 @RestController
@@ -21,13 +22,13 @@ import com.coche.serviceImplementation.CarServiceImpl;
 public class CarController {
 
 	@Autowired
-	private CarServiceImpl carServiceImpl;
+	private CarService carService;
 
 	//Api Rest para ingresar registro de automovil a la base de datos microservice_coche
 	@PostMapping("/ingresar")
 	public ResponseEntity<Carro> registrarVehiculo(@RequestBody Carro carbody){
 				
-		Carro brandNewCar = carServiceImpl.registrar(carbody);	
+		Carro brandNewCar = carService.registrar(carbody);	
 		
 		return new ResponseEntity<Carro>(brandNewCar, HttpStatus.CREATED);
 	}
@@ -37,12 +38,12 @@ public class CarController {
 	@GetMapping("/{id}")
 	public ResponseEntity<List<Carro>> buscarPorId(@PathVariable("id") int id){
 		
-		Carro car = carServiceImpl.busquedaPorId(id);
+		Carro car = carService.busquedaPorId(id);
 		
 		if(car != null) {
 		 
 		//Se convierte a lista lo que devuelve el metodo busquedaPorId en el que se implementa un optional	
-		List<Carro> car2 = Arrays.asList(carServiceImpl.busquedaPorId(id));
+		List<Carro> car2 = Arrays.asList(carService.busquedaPorId(id));
 		
 		  return new ResponseEntity<List<Carro>>(car2, HttpStatus.OK);
 		}
@@ -54,7 +55,7 @@ public class CarController {
 	@GetMapping("/busqueda_general")
 	public ResponseEntity<List<Carro>> listadoCompleto(){
 		
-		List<Carro> listaTotalInventario = carServiceImpl.listadoTodosLosCarros();
+		List<Carro> listaTotalInventario = carService.listadoTodosLosCarros();
 		return new ResponseEntity<List<Carro>>(listaTotalInventario, HttpStatus.OK);
 	}
 	
@@ -62,7 +63,7 @@ public class CarController {
 	@GetMapping("/busquedaPorUsuarioId/{usuarioId}")
 	public ResponseEntity<List<Carro>> listadoCarrosPorUsuarioId(@PathVariable("usuarioId") int usuarioId){
 		
-		List<Carro> listaTodosLosCarrosDeUnUsuario = carServiceImpl.busquedaPorUsuarioId(usuarioId);
+		List<Carro> listaTodosLosCarrosDeUnUsuario = carService.busquedaPorUsuarioId(usuarioId);
 		
 	return new ResponseEntity<List<Carro>>(listaTodosLosCarrosDeUnUsuario, HttpStatus.OK);
 	}
