@@ -23,7 +23,7 @@ public class CarServiceImpl implements  CarService{
 
 	@Override
 	public List<Carro> listadoTodosLosCarros() {
-		List<Carro> listadoCompleto = carRepo.findAll();
+		List<Carro> listadoCompleto = (List<Carro>) carRepo.findAll();
 		return listadoCompleto;
 	}
 
