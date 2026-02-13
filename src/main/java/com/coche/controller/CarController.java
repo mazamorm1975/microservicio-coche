@@ -21,6 +21,7 @@ import com.coche.serviceImplementation.CarServiceImpl;
 @RequestMapping("/coche")
 public class CarController {
 
+	private static final String ID = "id";
 	@Autowired
 	private CarService carService;
 
@@ -29,18 +30,18 @@ public class CarController {
 	public ResponseEntity<Carro> registrarVehiculo(@RequestBody Carro carbody){
 				
 		Carro brandNewCar = carService.registrar(carbody);	
-		
+				
 		return new ResponseEntity<Carro>(brandNewCar, HttpStatus.CREATED);
 	}
 
 	
 	//Api Rest para ubicar por id del coche de la base de datos microservice_coche
 	@GetMapping("/{id}")
-	public ResponseEntity<List<Carro>> buscarPorId(@PathVariable("id") int id){
+	public ResponseEntity<List<Carro>> buscarPorId(@PathVariable(ID) int id){
 		
 		Carro car = carService.busquedaPorId(id);
 		
-		if(car != null) {
+ 		if(car != null) {
 		 
 		//Se convierte a lista lo que devuelve el metodo busquedaPorId en el que se implementa un optional	
 		List<Carro> car2 = Arrays.asList(carService.busquedaPorId(id));
@@ -50,6 +51,8 @@ public class CarController {
 		
 		return new ResponseEntity<List<Carro>>(HttpStatus.NOT_FOUND);
 	}
+	
+	
 	
 	//Api Rest para obtener el listado general de TODOS los automoviles de la base de datos microservice_coche
 	@GetMapping("/busqueda_general")
