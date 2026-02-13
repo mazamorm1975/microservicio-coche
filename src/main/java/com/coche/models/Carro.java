@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 @Table(name="Coche")
 public class Carro {
     
+	//Este es el identificador de la tabla CARRO
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
