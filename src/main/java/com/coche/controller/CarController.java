@@ -1,8 +1,10 @@
 package com.coche.controller;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,13 +25,17 @@ public class CarController {
 
 	// se establece el id para identificador
 	private static final String ID = "id";
+
 	@Autowired
 	private CarService carService;
+
+	private ElasticsearchClient client;
+
 
 	// Api Rest para ingresar registro de automovil a la base de datos
 	// microservice_coche
 	@PostMapping("/ingresar")
-	public ResponseEntity<Carro> registrarVehiculo(@RequestBody Carro carbody) {
+	public ResponseEntity<Carro> registrarVehiculo(@RequestBody Carro carbody) throws IOException {
      
 		Carro brandNewCar = carService.registrar(carbody);
 
